@@ -69,7 +69,6 @@ body{
     align-items: center;
     justify-content: center;
     margin:0;
-    
 }
 
 .container .row{
@@ -105,3 +104,13 @@ p span{
     color: #6feaf6;
 }
 
+#reset-order{
+    background-color: transparent;
+    color:#fff;
+    padding:8px 10px;
+    border-radius: 5px;
+    border:1px solid #6feaf6;
+}
+#reset-order:active{
+    transform: scale(.98);
+}
