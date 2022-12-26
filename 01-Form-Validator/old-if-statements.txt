@@ -1,0 +1,25 @@
+ // Validate Username
+    if(username.value === ""){
+        showError(username,'Username is required');
+    } else {
+        showSuccess(username);
+    }
+    // Validate Email
+    if(email.value === ""){
+        showError(email,'Email is required');
+    } else if(isValidEmail(email) != true){
+        showError(email,"Emai addresss is invalid")
+    } else {
+        showSuccess(email);
+    }
+    if(password.value === ""){
+        showError(password,'Password is required');
+    } else {
+        showSuccess(password);
+    }
+    // Confirm password
+    if(passwordVerify.value === ""){
+        showError(passwordVerify,'Password is required');
+    } else {
+        showSuccess(passwordVerify);
+    }
