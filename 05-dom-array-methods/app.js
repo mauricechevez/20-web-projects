@@ -38,7 +38,7 @@ function sortByRichest(){
 function showOnlyMillionares(){
     // Check if any millionares exist:
     if(data.every(isBelowThreshold)){
-        alert('No Millionares exist')
+        alert('No millionaire exist')
     } else {
         data = data.filter(user =>{
         return user.money > 1000000;
