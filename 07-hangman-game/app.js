@@ -1,12 +1,12 @@
 const wrongLettersEl = document.getElementById('wrong-letters');
 const wordEl = document.getElementById('word');
-const playAgainBtn = document.getElementById('play-again');
+const playAgainBtn = document.getElementById('play-button');
 const popup = document.getElementById('popup-container');
 const finalMessage = document.getElementById('final-message');
 const notification = document.getElementById('notification-container');
 
 // Parts
-document.querySelectorAll('.figure-part');
+const figureParts = document.querySelectorAll('.figure-part');
 // Word Selection
 const word = ['application', 'programming', 'wizard','javascript'];
 let selectedWord = word[Math.floor(Math.random() * word.length)];
@@ -34,7 +34,26 @@ function displayWord(){
 }
 // Update the Wrong Letters
 function updateWrongLettersEl(){
-    console.log('Update wrong letters')
+    wrongLettersEl.innerHTML = `
+    ${wrongLetters.length > 0 ? '<p>Wrong</p>': ''}
+    ${wrongLetters.map(letter => `<span>${letter}</span>`)}
+    `;
+
+    // Display each part of the hangman
+    figureParts.forEach((part,index)=>{
+        const errors = wrongLetters.length;
+        if(index < errors){
+            part.style.display = 'block';
+        } else {
+            part.style.display = 'none';
+        }
+    })
+
+    // Check if lost
+    if(wrongLetters.length === figureParts.length){
+        finalMessage.innerText = "You have lost the game 🤨"
+        popup.style.display = "flex";
+    }
 }
 
 // Show Notification
@@ -72,6 +91,24 @@ window.addEventListener('keydown', e=>{
            }
         }
     }
+})
+// Reload the page on button click
+playAgainBtn.addEventListener('click',()=>{
+    // Empty the arrays
+    correctLetters.splice(0);
+    wrongLetters.splice(0);
+
+    // Select a new word from the word array
+    selectedWord = word[Math.floor(Math.random() * word.length)];
+
+    // Display the word on the game board
+    displayWord()
+
+    // Clear the wrong letters and the hangman figure
+    updateWrongLettersEl()
+
+    // Hide the popup
+    popup.style.display = 'none';
 })
 
 // init
