@@ -6,9 +6,6 @@ const search = document.getElementById('search'),
     single_mealEl = document.getElementById('single-meal');
 
 
-
-
-
 // Functions ⚡️
 function searchMeal(e){
     e.preventDefault();
@@ -61,6 +58,21 @@ function getMealById(mealid){
     })
 }
 
+// Fetch Random Meal
+function getRandomMeal(e){
+    // Clear any previous searches
+    mealsEl.innerHTML = '';
+    resultsHeading.innerHTML = '';
+    fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then(res => res.json())
+    .then(data =>{
+       const meal = data.meals[0];
+       addMealToDOM(meal)
+
+    })
+
+}
+
 function addMealToDOM(meal){
     // console.log(meal)
     const ingredients = [];
@@ -71,7 +83,6 @@ function addMealToDOM(meal){
             break;
         }
     }
-    // console.log(ingredients)
     single_mealEl.innerHTML = `
     <div class="single-meal">
         <h1>${meal.strMeal}</h1>
@@ -89,9 +100,15 @@ function addMealToDOM(meal){
         </div>
     </div>
     `
+    // Scroll into view
+    document.getElementById('single-meal').scrollIntoView({
+        behavior:"smooth"
+    })
 }
 // Event Listeners
-submit.addEventListener('submit', searchMeal)
+submit.addEventListener('submit', searchMeal);
+random.addEventListener('click', getRandomMeal);
+
 mealsEl.addEventListener('click',e=>{
     /* We look at the composed path to find if a class exists, and if so
     * return a value only if the class is meal-info.
