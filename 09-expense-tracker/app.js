@@ -31,6 +31,53 @@ function addTransactionDOM(transaction){
     list.appendChild(item);
 }
 
+function addTransaction(e){
+    e.preventDefault();
+    if(text.value.trim() === '' || amount.value.trim() === ''){
+        alert('Please add text and amount');
+
+    } else{
+        const transaction = {
+            id:generateID(),
+            text:text.value,
+            amount: Number(amount.value)
+        }
+        console.log(transaction)
+        // Add latest transaction to the list in DATA
+        transactions.push(transaction)
+        addTransactionDOM(transaction);
+        updateValues();
+        text.value = ``;
+        amount.value = ``;
+        text.focus();
+    }
+}
+
+// Generate a random ID
+function generateID(){
+    return Math.floor(Math.random() * 100000000);
+}
+
+// Update balance, income and expense
+function updateValues(){
+    const amounts = transactions.map(transaction => transaction.amount);
+    const total = amounts.reduce((accumulator, item)=>(accumulator += item), 0).toFixed(2);
+    
+    // Any positive number
+    const income = amounts.filter(item => item > 0).reduce((accumulator,item )=>(accumulator += item),0).toFixed(2);
+
+    // Any negative number
+    const expense = (amounts
+            .filter(item => item < 0)
+            .reduce((accumulator,item) => (accumulator += item),0) *
+             -1).toFixed(2);
+
+    // Insert values to the DOM
+    balance.innerText = `$${total}`;
+    money_plus.innerText = `+$${income}`;
+    money_minus.innerText = `-$${expense}`;
+}
+
 // Init app
 function init(){
     list.innerHTML = ``;
@@ -38,5 +85,11 @@ function init(){
     transactions.forEach(transaction =>{
         addTransactionDOM(transaction)
     })
+    updateValues();
 }
 init();
+
+// Add transactions
+form.addEventListener('submit',addTransaction)
+
+// Delete transaction
