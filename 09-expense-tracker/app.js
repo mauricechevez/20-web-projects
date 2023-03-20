@@ -8,15 +8,17 @@ const text = document.getElementById('text');
 const amount = document.getElementById('amount');
 
 // Dummy Transactions (For Now!)
-const dummyTransactions = [
-  { id: 1, text: 'Flower', amount: -20 },
-  { id: 2, text: 'Salary', amount: 300 },
-  { id: 3, text: 'Book', amount: -10 },
-  { id: 4, text: 'Camera', amount: 150 }
-];
+// const dummyTransactions = [
+//   { id: 1, text: 'Flower', amount: -20 },
+//   { id: 2, text: 'Salary', amount: 300 },
+//   { id: 3, text: 'Book', amount: -10 },
+//   { id: 4, text: 'Camera', amount: 150 }
+// ];
+
+const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 
 // Global State for transactions
-let transactions = dummyTransactions;
+let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
 // Display transactions inside of history
 function addTransactionDOM(transaction){
@@ -26,11 +28,12 @@ function addTransactionDOM(transaction){
     // Add class based on value;
     item.classList.add(transaction.amount < 0 ? 'minus':'plus' );
     item.innerHTML = `
-    ${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span><button class="delete-btn">x</button>
+    ${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
     `
     list.appendChild(item);
 }
 
+// Add transactions
 function addTransaction(e){
     e.preventDefault();
     if(text.value.trim() === '' || amount.value.trim() === ''){
@@ -47,6 +50,7 @@ function addTransaction(e){
         transactions.push(transaction)
         addTransactionDOM(transaction);
         updateValues();
+        updateLocalStorageTransactions();
         text.value = ``;
         amount.value = ``;
         text.focus();
@@ -78,6 +82,18 @@ function updateValues(){
     money_minus.innerText = `-$${expense}`;
 }
 
+// Remove Transaction
+function removeTransaction(id){
+    transactions = transactions.filter(transaction => transaction.id !== id);
+    updateLocalStorageTransactions();
+    init();
+}
+
+// Update LocalSTorageTransactions
+function updateLocalStorageTransactions(){
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
 // Init app
 function init(){
     list.innerHTML = ``;
@@ -90,6 +106,4 @@ function init(){
 init();
 
 // Add transactions
-form.addEventListener('submit',addTransaction)
-
-// Delete transaction
+form.addEventListener('submit',addTransaction);
