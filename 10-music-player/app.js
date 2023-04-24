@@ -68,10 +68,8 @@ function updateProgress(e){
     // get the duration and current time
     const {duration, currentTime} = e.srcElement;
     const progressPercent = (currentTime / duration ) * 100;
-
     // expand width of progress bar
     progress.style.width = `${progressPercent}%`;
-
 }
 
 // Set Progress bar by click
@@ -80,7 +78,6 @@ function setProgress(e){
     const clickX = e.offsetX;
     const duration = audio.duration;
     audio.currentTime = (clickX / width) * duration;
-
 }
 
 /*👂🏻 Event Listeners 👂🏻*/
