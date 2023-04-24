@@ -99,6 +99,7 @@ body{
 
 .music-info{
     background-color: rgba(255, 255, 255, .5);
+    padding:10px 10px 10px 150px;
     border-radius: 15px 15px 0 0;
     position: absolute;
     top: 0;
@@ -107,13 +108,13 @@ body{
     width:calc(100% - 40px);
     transform: translateY(0%);
     transition: transform .3s ease-in ,opacity .3s ease-in;
-    z-index: 100;
+    z-index: 0;
 }
 
 .music-container.play .music-info{
     opacity: 1;
     transform: translateY(-100%);
-    padding:10px 10px 10px 150px;
+
 }
 
 .music-info h4{
