@@ -42,7 +42,7 @@ const words = [
   let score = 0;
   // init time
   let time = 10;
-  // init timer for difficulty
+  // init timer for difficulty setting
   let diffTimer = 7;
   // Set Difficulty
   let difficulty = localStorage.getItem('difficulty') !== null ? localStorage.getItem('difficulty') : 'medium';
@@ -90,15 +90,21 @@ function gameOver(){
 }
 
 // Timer for Difficulty container
-const difficultySelectInterval = setInterval(function(){
-  diffTimer--;
-
-  if(diffTimer == 0){
-    clearInterval(difficultySelectInterval)
-    // hide the element
-    settingsEl.classList.toggle('hide');
-  }
-},1000)
+/* This hides the difficulty banner at the top of the page
+at an automatic interval.
+*/
+function startDifficultyDivTimer(){
+  const difficultySelectInterval = setInterval(function(){
+    diffTimer--;
+    console.log(diffTimer)
+    if(diffTimer == 0){
+      clearInterval(difficultySelectInterval)
+      // hide the element
+      settingsEl.classList.toggle('hide');
+    }
+  },1000)
+}
+startDifficultyDivTimer();
 
 
 // Event Listeners
@@ -127,10 +133,22 @@ text.addEventListener('input', e=>{
 
 settingsBtn.addEventListener('click',()=>{
   settingsEl.classList.toggle('hide');
+  // Restart the interval for the top div
+  diffTimer = 7;
+  startDifficultyDivTimer()
 })
 
 // Settings select
 settingsForm.addEventListener('change',(e)=>{
   difficulty = e.target.value;
   localStorage.setItem('difficulty',difficulty)
+})
+
+// Changing the timer value for entering the settings area
+settingsEl.addEventListener('mouseenter',()=>{
+  diffTimer = 100;
+})
+// Changing the timer value for exiting the settings area
+settingsEl.addEventListener('mouseleave',()=>{
+  diffTimer = 7;
 })
