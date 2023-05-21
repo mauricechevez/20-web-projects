@@ -112,13 +112,37 @@ function speakText(){
     speechSynthesis.speak(message)
 }
 
+// Set Voice
+function setVoice(e){
+  message.voice = voices.find((voice)=> voice.name === e.target.value);
+}
+
+/* %%%%% Event Listeners %%%%% */
+
 // voices change
 speechSynthesis.addEventListener('voiceschanged', getVoices);
 
 // Toggle Button
-toggleBtn.addEventListener('click', ()=> document.getElementById('text-box').classList.toggle('show'));
+toggleBtn.addEventListener('click', ()=> {
+  document.getElementById('text-box').classList.toggle('show');
+  // Clear the text
+  setTimeout(()=>textarea.value = "",1000);
+});
 // Close Button
-closeBtn.addEventListener('click', ()=> document.getElementById('text-box').classList.remove('show'));
+closeBtn.addEventListener('click', ()=>{
+   document.getElementById('text-box').classList.remove('show');
+   // Clear the text
+   setTimeout(()=>textarea.value = "",1000);
+  });
+
+// Select list
+voiceSelect.addEventListener('change', setVoice)
+
+// Read Text Button
+readBtn.addEventListener('click', ()=>{
+  setTextMessage(textarea.value);
+  speakText();
+})
 
 // Init voices
 getVoices();
