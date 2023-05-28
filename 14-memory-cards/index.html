@@ -5,12 +5,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
-    
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <title>Memory Card</title>
 </head>
 <body>
+    <button id="clear" class="clear btn"><i class="fas fa-trash"></i>Clear Trash</button>
+    <h1>Memory Cards
+        <button id="show" class="btn btn-small">
+            <i class="fas fa-plus"></i>
+            Add New Card
+        </button>
+    </h1>
+    <!-- Card Container -->
+    <div id="card-container" class="cards">
+        <div class="card active">
+            <div class="inner-card">
+                <!-- Front of card -->
+                <div class="inner-card-front">
+                    <p>What is PHP?</p>
+                </div>
+                <!-- Back of card -->
+                <div class="inner-card-back">
+                    <p>A Programming Language</p>
+                </div>
+            </div>
+        </div>
+        <div class="card ">
+            <div class="inner-card">
+                <!-- Front of card -->
+                <div class="inner-card-front">
+                    <p>What is Javascript?</p>
+                </div>
+                <!-- Back of card -->
+                <div class="inner-card-back">
+                    <p>Another Programming Language</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Card Container -->
+
+    <div class="navigation">
+        <!-- Left button -->
+        <button id="prev" class="nav-button">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <!-- display current card -->
+        <p id="current"></p>
+        
+        <!-- Right button -->
+        <button id="next" class="nav-button">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- Add a new card -->
+    <div id="add-container" class="add-container">
+        <h1>Add New card
+            <button id="hide" class="btn btn-small btn-ghost">
+                <i class="fas fa-times"></i>
+            </button>
+        </h1>
+        <div class="form-group"></div>
+    </div>
     
     <script src="app.js"></script>
 </body>
