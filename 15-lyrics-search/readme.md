@@ -47,3 +47,11 @@ I currently don't use APIs much, so I typically forget the syntax. Just noting t
     </ul>
   `;
 ```
+
+### Using Regular Expression to find line breaks and carriage returns
+
+When the lyrics come in, they have line break and carriage return characters. This regex allows for searching for any of these and replace them with the `<br>` HTML tag to replicate the line breaks in HTML.
+
+```js
+const lyrics = data.lyrics.replace('/(\r\n|\r|\n)/g', `<br>`);
+```
