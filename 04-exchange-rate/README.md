@@ -9,3 +9,6 @@ Select countries to get the exchange rate for a specific amount
 - Display the values for both countries
 - Update values on amount change
 - Swap country rates
+
+## Issues
+Nov 12 2023 - There's a CORS error when viewing this page that needs to be fixed
